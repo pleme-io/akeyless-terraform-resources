@@ -1,0 +1,14 @@
+[provider]
+name = "akeyless"
+description = "Akeyless Vault Provider — manage secrets, auth methods, targets, and roles"
+version = "1.0.0"
+sdk_import = "github.com/akeylesslabs/akeyless-go/v5"
+
+[auth]
+token_field = "token"
+env_var = "AKEYLESS_ACCESS_TOKEN"
+gateway_url_field = "api_gateway_address"
+gateway_env_var = "AKEYLESS_GATEWAY"
+
+[defaults]
+skip_fields = ["token", "uid-token", "json"]

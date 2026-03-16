@@ -1,0 +1,34 @@
+[resource]
+name = "akeyless_target_ping"
+description = "Manages a Ping Identity target in Akeyless Vault"
+category = "target"
+
+[crud]
+create_endpoint = "/target-create-ping"
+create_schema = "targetCreatePing"
+update_endpoint = "/target-update-ping"
+update_schema = "targetUpdatePing"
+read_endpoint = "/target-get"
+read_schema = "targetGet"
+read_response_schema = "Target"
+delete_endpoint = "/target-delete"
+delete_schema = "targetDelete"
+
+[identity]
+id_field = "name"
+import_field = "name"
+force_new_fields = ["name"]
+
+[fields]
+description = { description = "Target description" }
+"ping-url" = { description = "Ping Identity server URL" }
+"privileged-user" = { description = "Ping Identity privileged username" }
+"administrative-port" = { description = "Ping Identity administrative port" }
+"authorization-port" = { description = "Ping Identity authorization port" }
+"ping-password" = { sensitive = true, description = "Ping Identity password" }
+delete_protection = { type_override = "bool", description = "Enable delete protection" }
+
+[read_mapping]
+"target_name" = "name"
+"comment" = "description"
+"target_type" = "type"

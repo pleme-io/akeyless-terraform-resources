@@ -1,0 +1,58 @@
+[resource]
+name = "akeyless_auth_method_azure_ad"
+description = "Manages an Azure AD authentication method"
+category = "auth_method"
+
+[crud]
+create_endpoint = "/auth-method-create-azure-ad"
+create_schema = "authMethodCreateAzureAd"
+update_endpoint = "/auth-method-update-azure-ad"
+update_schema = "authMethodUpdateAzureAd"
+read_endpoint = "/get-auth-method"
+read_schema = "getAuthMethod"
+read_response_schema = "AuthMethod"
+delete_endpoint = "/delete-auth-method"
+delete_schema = "deleteAuthMethod"
+
+[identity]
+id_field = "name"
+import_field = "name"
+force_new_fields = ["name"]
+
+[fields]
+"access-id" = { computed = true, description = "The auth method access ID" }
+"access-expires" = { description = "Access expiration in Unix time (0 = no expiry)" }
+"bound-ips" = { description = "CIDR whitelist for access" }
+"gw-bound-ips" = { description = "Gateway CIDR whitelist" }
+"force-sub-claims" = { type_override = "bool", description = "Force sub-claims enforcement" }
+delete_protection = { type_override = "bool", description = "Enable delete protection" }
+"bound-tenant-id" = { description = "Azure tenant ID to restrict access" }
+"issuer" = { description = "Azure AD issuer URL" }
+"jwks-uri" = { description = "JWKS URI for token verification" }
+"audience" = { description = "Azure AD audience (application ID)" }
+"bound-spid" = { description = "Service principal IDs to restrict access" }
+"bound-group-id" = { description = "Azure AD group IDs to restrict access" }
+"bound-sub-id" = { description = "Azure subscription IDs to restrict access" }
+"bound-rg-id" = { description = "Azure resource group IDs to restrict access" }
+"bound-providers" = { description = "Azure resource providers to restrict access" }
+"bound-resource-types" = { description = "Azure resource types to restrict access" }
+"bound-resource-names" = { description = "Azure resource names to restrict access" }
+"bound-resource-id" = { description = "Azure resource IDs to restrict access" }
+"jwt-ttl" = { description = "JWT TTL in seconds" }
+
+[read_mapping]
+"auth_method_access_id" = "access_id"
+"access_info.access_expires" = "access_expires"
+"access_info.force_sub_claims" = "force_sub_claims"
+"access_info.azure_ad_access_rules.bound_tenant_id" = "bound_tenant_id"
+"access_info.azure_ad_access_rules.bound_spid" = "bound_spid"
+"access_info.azure_ad_access_rules.bound_group_id" = "bound_group_id"
+"access_info.azure_ad_access_rules.bound_sub_id" = "bound_sub_id"
+"access_info.azure_ad_access_rules.bound_rg_id" = "bound_rg_id"
+"access_info.azure_ad_access_rules.bound_providers" = "bound_providers"
+"access_info.azure_ad_access_rules.bound_resource_types" = "bound_resource_types"
+"access_info.azure_ad_access_rules.bound_resource_names" = "bound_resource_names"
+"access_info.azure_ad_access_rules.bound_resource_id" = "bound_resource_id"
+"access_info.azure_ad_access_rules.issuer" = "issuer"
+"access_info.azure_ad_access_rules.jwks_uri" = "jwks_uri"
+"access_info.azure_ad_access_rules.audience" = "audience"

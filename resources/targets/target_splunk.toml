@@ -1,0 +1,32 @@
+[resource]
+name = "akeyless_target_splunk"
+description = "Manages a Splunk target in Akeyless Vault"
+category = "target"
+
+[crud]
+create_endpoint = "/target-create-splunk"
+create_schema = "targetCreateSplunk"
+update_endpoint = "/target-update-splunk"
+update_schema = "targetUpdateSplunk"
+read_endpoint = "/target-get"
+read_schema = "targetGet"
+read_response_schema = "Target"
+delete_endpoint = "/target-delete"
+delete_schema = "targetDelete"
+
+[identity]
+id_field = "name"
+import_field = "name"
+force_new_fields = ["name"]
+
+[fields]
+description = { description = "Target description" }
+"splunk-url" = { description = "Splunk management URL" }
+"splunk-admin-username" = { description = "Splunk admin username" }
+"splunk-admin-password" = { sensitive = true, description = "Splunk admin password" }
+delete_protection = { type_override = "bool", description = "Enable delete protection" }
+
+[read_mapping]
+"target_name" = "name"
+"comment" = "description"
+"target_type" = "type"

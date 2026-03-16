@@ -1,0 +1,28 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
+
+      - name: Install terraform-forge-cli
+        run: cargo install --git https://github.com/pleme-io/terraform-forge-cli
+
+      - name: Fetch Akeyless OpenAPI spec
+        run: |
+          curl -sL https://raw.githubusercontent.com/akeylesslabs/akeyless-go/main/api/openapi.yaml -o /tmp/openapi.yaml
+
+      - name: Validate resource specs
+        run: terraform-forge validate --spec /tmp/openapi.yaml --resources resources
+
+      - name: Drift detection
+        run: terraform-forge drift --spec /tmp/openapi.yaml --resources resources

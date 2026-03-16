@@ -1,0 +1,35 @@
+[resource]
+name = "akeyless_target_zerossl"
+description = "Manages a ZeroSSL target in Akeyless Vault"
+category = "target"
+
+[crud]
+create_endpoint = "/target-create-zerossl"
+create_schema = "targetCreateZeroSSL"
+update_endpoint = "/target-update-zerossl"
+update_schema = "targetUpdateZeroSSL"
+read_endpoint = "/target-get"
+read_schema = "targetGet"
+read_response_schema = "Target"
+delete_endpoint = "/target-delete"
+delete_schema = "targetDelete"
+
+[identity]
+id_field = "name"
+import_field = "name"
+force_new_fields = ["name"]
+
+[fields]
+description = { description = "Target description" }
+"api-key" = { sensitive = true, description = "ZeroSSL API key" }
+"imap-fqdn" = { description = "IMAP server FQDN for domain validation" }
+"imap-port" = { description = "IMAP server port" }
+"imap-username" = { description = "IMAP username" }
+"imap-password" = { sensitive = true, description = "IMAP password" }
+"imap-target-email" = { description = "Target email for domain validation" }
+delete_protection = { type_override = "bool", description = "Enable delete protection" }
+
+[read_mapping]
+"target_name" = "name"
+"comment" = "description"
+"target_type" = "type"

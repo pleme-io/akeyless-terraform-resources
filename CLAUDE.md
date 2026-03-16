@@ -1,8 +1,8 @@
 # akeyless-terraform-resources
 
-118 TOML resource specifications covering the full Akeyless API surface.
+119 TOML resource specifications covering the full Akeyless API surface.
 These specs are the declarative input for `iac-forge` code generation across
-all backends (Terraform, Pulumi, Crossplane, Ansible).
+all backends (Terraform, Pulumi, Crossplane, Ansible, Pangea, Steampipe).
 
 ## Directory Structure
 

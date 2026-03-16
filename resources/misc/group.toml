@@ -10,6 +10,7 @@ update_endpoint = "/update-group"
 update_schema = "updateGroup"
 read_endpoint = "/get-group"
 read_schema = "getGroup"
+read_response_schema = "GetGroupOutput"
 delete_endpoint = "/delete-group"
 delete_schema = "deleteGroup"
 
@@ -19,9 +20,11 @@ import_field = "name"
 force_new_fields = ["name"]
 
 [fields]
-description = { description = "Group description" }
-"group-alias" = { description = "Group alias" }
-delete_protection = { type_override = "bool", description = "Enable delete protection" }
+description = { description = "Description of the group" }
+"group-alias" = { description = "A short group alias" }
+"user-assignment" = { description = "JSON string defining access permission assignment" }
 
 [read_mapping]
 "group_name" = "name"
+"group_alias" = "group_alias"
+"description" = "description"

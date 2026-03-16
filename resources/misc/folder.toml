@@ -10,6 +10,7 @@ update_endpoint = "/folder-update"
 update_schema = "folderUpdate"
 read_endpoint = "/folder-get"
 read_schema = "folderGet"
+read_response_schema = "folderGetOutput"
 delete_endpoint = "/folder-delete"
 delete_schema = "folderDelete"
 
@@ -19,8 +20,10 @@ import_field = "name"
 force_new_fields = ["name"]
 
 [fields]
-description = { description = "Folder description" }
+accessibility = { description = "Folder accessibility: regular or personal" }
 delete_protection = { type_override = "bool", description = "Enable delete protection" }
+description = { description = "Description of the folder" }
+tags = { description = "Tags for the folder" }
 
 [read_mapping]
 "folder_name" = "name"

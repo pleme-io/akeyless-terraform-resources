@@ -5,9 +5,9 @@ category = "target"
 
 [crud]
 create_endpoint = "/target-create-db"
-create_schema = "targetCreateDb"
+create_schema = "targetCreateDB"
 update_endpoint = "/target-update-db"
-update_schema = "targetUpdateDb"
+update_schema = "targetUpdateDB"
 read_endpoint = "/target-get"
 read_schema = "targetGet"
 read_response_schema = "Target"

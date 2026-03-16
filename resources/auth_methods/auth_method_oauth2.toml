@@ -5,9 +5,9 @@ category = "auth_method"
 
 [crud]
 create_endpoint = "/auth-method-create-oauth2"
-create_schema = "authMethodCreateOAuth2"
+create_schema = "authMethodCreateOauth2"
 update_endpoint = "/auth-method-update-oauth2"
-update_schema = "authMethodUpdateOAuth2"
+update_schema = "authMethodUpdateOauth2"
 read_endpoint = "/get-auth-method"
 read_schema = "getAuthMethod"
 read_response_schema = "AuthMethod"

@@ -5,9 +5,9 @@ category = "target"
 
 [crud]
 create_endpoint = "/target-create-ssh"
-create_schema = "targetCreateSSH"
+create_schema = "targetCreateSsh"
 update_endpoint = "/target-update-ssh"
-update_schema = "targetUpdateSSH"
+update_schema = "targetUpdateSsh"
 read_endpoint = "/target-get"
 read_schema = "targetGet"
 read_response_schema = "Target"

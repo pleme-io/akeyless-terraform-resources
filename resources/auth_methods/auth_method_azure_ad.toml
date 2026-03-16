@@ -5,9 +5,9 @@ category = "auth_method"
 
 [crud]
 create_endpoint = "/auth-method-create-azure-ad"
-create_schema = "authMethodCreateAzureAd"
+create_schema = "authMethodCreateAzureAD"
 update_endpoint = "/auth-method-update-azure-ad"
-update_schema = "authMethodUpdateAzureAd"
+update_schema = "authMethodUpdateAzureAD"
 read_endpoint = "/get-auth-method"
 read_schema = "getAuthMethod"
 read_response_schema = "AuthMethod"

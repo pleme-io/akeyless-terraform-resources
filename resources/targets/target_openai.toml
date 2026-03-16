@@ -5,9 +5,9 @@ category = "target"
 
 [crud]
 create_endpoint = "/target-create-openai"
-create_schema = "targetCreateOpenai"
+create_schema = "targetCreateOpenAI"
 update_endpoint = "/target-update-openai"
-update_schema = "targetUpdateOpenai"
+update_schema = "targetUpdateOpenAI"
 read_endpoint = "/target-get"
 read_schema = "targetGet"
 read_response_schema = "Target"

@@ -1,6 +1,6 @@
 [resource]
 name = "akeyless_gateway_allowed_access"
-description = "Manages a gateway allowed access permission"
+description = "Manages gateway allowed access in Akeyless"
 category = "gateway"
 
 [crud]
@@ -10,6 +10,7 @@ update_endpoint = "/gateway-update-allowed-access"
 update_schema = "gatewayUpdateAllowedAccess"
 read_endpoint = "/gateway-get-allowed-access"
 read_schema = "gatewayGetAllowedAccess"
+read_response_schema = "AllowedAccess"
 delete_endpoint = "/gateway-delete-allowed-access"
 delete_schema = "gatewayDeleteAllowedAccess"
 
@@ -19,11 +20,11 @@ import_field = "name"
 force_new_fields = ["name"]
 
 [fields]
-"access-id" = { description = "Auth method access ID to allow" }
-"sub-claims" = { description = "Sub-claims for the allowed access (key=value pairs)" }
-"permissions" = { description = "Allowed permissions: admin, defaults, targets, classic_keys, automatic_migration, ldap_auth, dynamic_secret, k8s_auth" }
+"access-id" = { description = "The access ID to attach to this allowed access" }
+"case-sensitive" = { description = "Treat sub claims as case-sensitive [true/false]" }
 description = { description = "Allowed access description" }
-delete_protection = { type_override = "bool", description = "Enable delete protection" }
+"permissions" = { description = "Comma-separated list of permissions: defaults, targets, classic_keys, automatic_migration, ldap_auth, dynamic_secret, k8s_auth, log_forwarding, zero_knowledge_encryption, rotated_secret, caching, event_forwarding, admin, kmip, general, rotate_secret_value" }
+"sub-claims" = { description = "Key/val of sub claims, e.g. group=admins,developers" }
 
 [read_mapping]
 "name" = "name"

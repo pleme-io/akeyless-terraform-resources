@@ -1,11 +1,13 @@
 [resource]
-name = "akeyless_target_splunk"
-description = "Manages a Splunk target in Akeyless Vault"
+name = "akeyless_target_lets_encrypt"
+description = "Manages a Let's Encrypt target in Akeyless Vault"
 category = "target"
 
 [crud]
-create_endpoint = "/target-create-splunk"
-create_schema = "targetCreateSplunk"
+create_endpoint = "/target-create-lets-encrypt"
+create_schema = "targetCreateLetsEncrypt"
+update_endpoint = "/target-update-lets-encrypt"
+update_schema = "targetUpdateLetsEncrypt"
 read_endpoint = "/target-get"
 read_schema = "targetGet"
 read_response_schema = "Target"
@@ -19,9 +21,6 @@ force_new_fields = ["name"]
 
 [fields]
 description = { description = "Target description" }
-"splunk-url" = { description = "Splunk management URL" }
-"splunk-admin-username" = { description = "Splunk admin username" }
-"splunk-admin-password" = { sensitive = true, description = "Splunk admin password" }
 delete_protection = { type_override = "bool", description = "Enable delete protection" }
 
 [read_mapping]

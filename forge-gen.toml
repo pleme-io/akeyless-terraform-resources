@@ -1,0 +1,103 @@
+# forge-gen.toml — Full code generation manifest for Akeyless API
+#
+# This manifest configures forge-gen to produce ALL artifact types from the
+# Akeyless OpenAPI spec: client SDKs (28 languages), server stubs (5 frameworks),
+# IaC providers (6 platforms), Helm charts, MCP server, schemas, and documentation.
+#
+# Usage:
+#   forge-gen --manifest forge-gen.toml
+#   forge-gen --manifest forge-gen.toml --parallel
+#
+# The tend daemon triggers this automatically via file_watches when
+# akeylesslabs/akeyless-go publishes a new api/openapi.yaml.
+
+[spec]
+path = "specs/openapi.yaml"
+
+[output]
+dir = "./generated"
+
+# ── Client SDKs (28 languages via openapi-generator-cli) ──────────────────
+[sdks]
+targets = [
+  "go",
+  "python",
+  "javascript",
+  "typescript",
+  "typescript-axios",
+  "typescript-node",
+  "typescript-angular",
+  "java",
+  "ruby",
+  "csharp",
+  "rust",
+  "kotlin",
+  "swift",
+  "dart",
+  "php",
+  "perl",
+  "elixir",
+  "scala",
+  "haskell",
+  "c",
+  "cpp",
+  "lua",
+  "r",
+  "ocaml",
+  "clojure",
+  "elm",
+  "powershell",
+  "bash",
+]
+
+# ── Server stubs (5 frameworks via openapi-generator-cli) ─────────────────
+[servers]
+targets = [
+  "go-server",
+  "python-fastapi",
+  "rust-axum",
+  "spring",
+  "kotlin-spring",
+]
+
+# ── IaC providers (6 platforms via iac-forge) ─────────────────────────────
+[iac]
+backends = [
+  "terraform",
+  "pulumi",
+  "crossplane",
+  "ansible",
+  "pangea",
+  "steampipe",
+]
+resources = "resources/"
+provider = "provider.toml"
+
+# ── Helm charts (via helm-forge / iac-forge) ──────────────────────────────
+[helm]
+targets = ["helm"]
+resources = "resources/"
+provider = "provider.toml"
+
+# ── MCP server (via mcp-forge) ───────────────────────────────────────────
+[mcp]
+targets = ["mcp-rust"]
+name = "akeyless-mcp"
+
+# ── Schema generators (via openapi-generator-cli) ────────────────────────
+[schemas]
+targets = [
+  "graphql-schema",
+  "protobuf-schema",
+  "mysql-schema",
+  "postgresql-schema",
+]
+
+# ── Documentation generators (via openapi-generator-cli) ─────────────────
+[docs]
+targets = [
+  "markdown",
+  "html",
+  "asciidoc",
+  "plantuml",
+]

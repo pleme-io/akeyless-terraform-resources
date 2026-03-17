@@ -1,0 +1,10 @@
+[data_source]
+name = "akeyless_gateway_customer_fragments"
+description = "List gateway customer fragments"
+
+[read]
+endpoint = "/gateway-list-customer-fragments"
+schema = "GatewayListCustomerFragments"
+
+[fields]
+token = { skip = true }

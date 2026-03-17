@@ -1,0 +1,10 @@
+[data_source]
+name = "akeyless_roles"
+description = "List all roles"
+
+[read]
+endpoint = "/list-roles"
+schema = "ListRoles"
+
+[fields]
+token = { skip = true }

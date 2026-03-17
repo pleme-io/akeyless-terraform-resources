@@ -1,0 +1,13 @@
+[data_source]
+name = "akeyless_auth_method"
+description = "Read a specific authentication method by name"
+
+[read]
+endpoint = "/get-auth-method"
+schema = "GetAuthMethod"
+
+[fields]
+token = { skip = true }
+
+[read_mapping]
+"auth_method_access_id" = "access_id"

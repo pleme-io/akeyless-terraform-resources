@@ -1,0 +1,10 @@
+[data_source]
+name = "akeyless_target"
+description = "List targets (use filter to get a specific target)"
+
+[read]
+endpoint = "/target-list"
+schema = "TargetList"
+
+[fields]
+token = { skip = true }

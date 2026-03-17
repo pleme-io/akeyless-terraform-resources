@@ -1,0 +1,10 @@
+[data_source]
+name = "akeyless_gateway_producers"
+description = "List gateway dynamic secret producers"
+
+[read]
+endpoint = "/gateway-list-producers"
+schema = "GatewayListProducers"
+
+[fields]
+token = { skip = true }

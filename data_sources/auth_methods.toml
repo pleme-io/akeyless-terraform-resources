@@ -1,0 +1,10 @@
+[data_source]
+name = "akeyless_auth_methods"
+description = "List all authentication methods"
+
+[read]
+endpoint = "/list-auth-methods"
+schema = "ListAuthMethods"
+
+[fields]
+token = { skip = true }

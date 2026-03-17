@@ -1,0 +1,10 @@
+[data_source]
+name = "akeyless_kmip_clients"
+description = "List KMIP clients"
+
+[read]
+endpoint = "/kmip-list-clients"
+schema = "KmipListClients"
+
+[fields]
+token = { skip = true }

@@ -1,0 +1,10 @@
+[data_source]
+name = "akeyless_sra_bastions"
+description = "List Secure Remote Access bastions"
+
+[read]
+endpoint = "/list-sra-bastions"
+schema = "ListSRABastions"
+
+[fields]
+token = { skip = true }

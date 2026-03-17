@@ -1,0 +1,10 @@
+[data_source]
+name = "akeyless_account_custom_fields"
+description = "List account custom fields"
+
+[read]
+endpoint = "/account-custom-field-list"
+schema = "AccountCustomFieldList"
+
+[fields]
+token = { skip = true }

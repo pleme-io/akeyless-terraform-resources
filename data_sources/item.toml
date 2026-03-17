@@ -1,0 +1,12 @@
+[data_source]
+name = "akeyless_item"
+description = "Describe a specific item (secret, key, or certificate)"
+
+[read]
+endpoint = "/describe-item"
+schema = "DescribeItem"
+response_schema = "Item"
+
+[fields]
+token = { skip = true }
+"display-id" = { skip = true }

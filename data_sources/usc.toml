@@ -1,0 +1,10 @@
+[data_source]
+name = "akeyless_usc"
+description = "List universal secrets connectors"
+
+[read]
+endpoint = "/usc-list"
+schema = "UscList"
+
+[fields]
+token = { skip = true }

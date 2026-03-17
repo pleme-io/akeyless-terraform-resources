@@ -1,0 +1,10 @@
+[data_source]
+name = "akeyless_event_forwarder"
+description = "Read a specific event forwarder"
+
+[read]
+endpoint = "/get-event-forwarder"
+schema = "GetEventForwarder"
+
+[fields]
+token = { skip = true }

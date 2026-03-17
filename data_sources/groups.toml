@@ -1,0 +1,10 @@
+[data_source]
+name = "akeyless_groups"
+description = "List all groups"
+
+[read]
+endpoint = "/list-groups"
+schema = "ListGroups"
+
+[fields]
+token = { skip = true }

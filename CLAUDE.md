@@ -117,3 +117,68 @@ iac-forge generate --backend terraform --spec api.yaml --resources resources/ --
 # Full API evolution sync (diff + drift + scaffold + validate + generate)
 iac-forge sync --spec-old old-api.yaml --spec-new new-api.yaml --resources resources/ --output ./out/ --provider provider.toml --auto-scaffold
 ```
+
+## Artifact Verification
+
+Generated artifacts are verified via `iac-verify`, a Rust tool in `tools/iac-verify/`.
+It validates packaged artifacts from each -gen repo without external tool dependencies
+(no gofmt, helm CLI, python — pure serde-based YAML/JSON parsing).
+
+```bash
+# Verify a single backend
+iac-verify go /path/to/terraform-output
+iac-verify helm /path/to/helm-charts
+iac-verify crossplane /path/to/crds
+iac-verify ansible /path/to/modules
+iac-verify pulumi /path/to/schema
+
+# Verify all backends via Nix (used by kenshi CI)
+nix build .#verify-all
+
+# Run all checks
+nix flake check
+```
+
+### What each backend check validates
+
+| Backend | Checks |
+|---------|--------|
+| `go` (terraform, steampipe) | Go files exist and are valid UTF-8 |
+| `helm` | Chart.yaml has required fields (apiVersion, name, version); values.yaml parses |
+| `ansible` | Python files exist and are valid UTF-8 |
+| `crossplane` | CRDs parse as YAML; have spec.group and spec.names |
+| `pulumi` | schema.json is valid JSON with name, version, resources fields |
+
+## Aggregate Flake
+
+This repo is the aggregate for all 6 -gen repos. The flake:
+
+- **Inputs**: 6 -gen repos (terraform, steampipe, helm, ansible, crossplane, pulumi)
+- **Packages**: `resource-specs`, `iac-verify`, `verify-all`, plus all 6 -gen artifacts
+- **Checks**: 6 iac-verify checks (one per backend)
+- **Apps**: `sync` (wraps `scripts/sync-gen-repos.sh`)
+
+### Kenshi Integration
+
+The `verify-all` package is the kenshi build target. When `flake.lock` changes
+(indicating -gen repo updates), kenshi creates a BuildPipeline that runs
+`nix build .#verify-all`, which forces all 6 backend checks to pass.
+
+### End-to-End Flow
+
+```
+tend detects OpenAPI spec change
+  → iac-forge sync --auto-commit --auto-push (generates + pushes to -gen repos)
+  → curl dispatch → GitHub Actions workflow
+    → nix flake update (updates flake.lock with latest -gen commits)
+    → git push
+      → kenshi webhook fires
+        → nix build .#verify-all (validates all 6 backends)
+        → Discord notification (silent on success, alert on failure)
+```
+
+### GitHub Actions
+
+`.github/workflows/update-gen-inputs.yml` handles `repository_dispatch` events
+from the iac-forge pod. It installs Nix, updates flake.lock for all 6 -gen inputs,
+and pushes. This push triggers kenshi verification.

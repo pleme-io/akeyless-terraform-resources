@@ -54,6 +54,7 @@
     flake-utils.lib.eachDefaultSystem (system:
       let
         pkgs = import nixpkgs { inherit system; };
+        lib = pkgs.lib;
 
         # Resource specs as a derivation (for validation / downstream consumption)
         resource-specs = pkgs.runCommand "akeyless-resource-specs" {
@@ -75,6 +76,28 @@
           steampipe-plugin = steampipe-akeyless-gen.packages.${system}.default;
         };
 
+        # Content validation from each -gen repo
+        contentChecks = {
+          terraform-syntax = terraform-akeyless-gen.checks.${system}.default;
+          steampipe-syntax = steampipe-akeyless-gen.checks.${system}.default;
+          helm-lint = helm-akeyless-gen.checks.${system}.default;
+          ansible-syntax = ansible-akeyless-gen.checks.${system}.default;
+          crossplane-crds = crossplane-akeyless-gen.checks.${system}.default;
+          pulumi-schema = pulumi-akeyless-gen.checks.${system}.default;
+        };
+
+        # Package build verification
+        packageChecks = builtins.mapAttrs (name: pkg:
+          pkgs.runCommand "check-pkg-${name}" {} ''
+            test -d ${pkg} || (echo "FAIL: ${name} did not produce output" && exit 1)
+            echo "OK: ${name} (${pkg})"
+            mkdir -p $out
+            echo "${name}: ${pkg}" > $out/result.txt
+          ''
+        ) genPkgs;
+
+        allChecks = contentChecks // packageChecks;
+
         # Sync script wrapper
         sync-script = pkgs.writeShellApplication {
           name = "akeyless-iac-sync";
@@ -85,13 +108,27 @@
         };
       in
       {
-        # All generated packages plus the resource specs
         packages = genPkgs // {
           default = resource-specs;
           inherit resource-specs;
+
+          # Single build target that forces all checks to pass.
+          # Used by kenshi: nix build .#verify-all
+          verify-all = let
+            checkRefs = lib.mapAttrsToList (name: drv:
+              "echo '  ${name}: ${drv}' >> $out/result.txt && cat ${drv}/result.txt >> $out/result.txt 2>/dev/null || true"
+            ) allChecks;
+            numChecks = toString (builtins.length (builtins.attrNames allChecks));
+          in pkgs.runCommand "verify-all-iac-backends" {} ''
+            mkdir -p $out
+            echo "=== IaC Backend Verification Report ===" > $out/result.txt
+            ${builtins.concatStringsSep "\n" checkRefs}
+            echo "" >> $out/result.txt
+            echo "All ${numChecks} checks passed" >> $out/result.txt
+            cat $out/result.txt
+          '';
         };
 
-        # Sync app to run the full pipeline
         apps.sync = {
           type = "app";
           program = "${sync-script}/bin/akeyless-iac-sync";
@@ -99,28 +136,7 @@
 
         apps.default = self.apps.${system}.sync;
 
-        # Checks: delegate content validation to each -gen repo, plus verify packaging
-        checks = let
-          # Content validation from each -gen repo
-          contentChecks = {
-            terraform-syntax = terraform-akeyless-gen.checks.${system}.default;
-            steampipe-syntax = steampipe-akeyless-gen.checks.${system}.default;
-            helm-lint = helm-akeyless-gen.checks.${system}.default;
-            ansible-syntax = ansible-akeyless-gen.checks.${system}.default;
-            crossplane-crds = crossplane-akeyless-gen.checks.${system}.default;
-            pulumi-schema = pulumi-akeyless-gen.checks.${system}.default;
-          };
-
-          # Package build verification (existing)
-          packageChecks = builtins.mapAttrs (name: pkg:
-            pkgs.runCommand "check-pkg-${name}" {} ''
-              test -d ${pkg} || (echo "FAIL: ${name} did not produce output" && exit 1)
-              echo "OK: ${name} (${pkg})"
-              mkdir -p $out
-              echo "${name}: ${pkg}" > $out/result.txt
-            ''
-          ) genPkgs;
-        in contentChecks // packageChecks;
+        checks = allChecks;
 
         devShells.default = pkgs.mkShellNoCC {
           packages = [
@@ -128,8 +144,9 @@
           ];
           shellHook = ''
             echo "akeyless-terraform-resources dev shell"
-            echo "  nix run .#sync  -- run full iac-forge pipeline"
-            echo "  nix flake check -- verify all 7 backends (content + packaging)"
+            echo "  nix run .#sync       -- run full iac-forge pipeline"
+            echo "  nix flake check      -- verify all 7 backends (content + packaging)"
+            echo "  nix build .#verify-all -- single derivation that forces all checks"
           '';
         };
       }

@@ -1,0 +1,38 @@
+name: Update -gen inputs
+
+on:
+  repository_dispatch:
+    types: [gen-repos-updated]
+
+permissions:
+  contents: write
+
+jobs:
+  update-lock:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: DeterminateSystems/nix-installer-action@main
+
+      - name: Update -gen flake inputs
+        run: |
+          nix flake update \
+            terraform-akeyless-gen \
+            steampipe-akeyless-gen \
+            helm-akeyless-gen \
+            ansible-akeyless-gen \
+            crossplane-akeyless-gen \
+            pulumi-akeyless-gen
+
+      - name: Commit and push if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add flake.lock
+          if ! git diff --cached --quiet; then
+            git commit -m "chore: update -gen inputs after iac-forge sync"
+            git push
+          else
+            echo "No changes to flake.lock"
+          fi

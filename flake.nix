@@ -5,9 +5,6 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
     flake-utils.url = "github:numtide/flake-utils";
 
-    # Generated artifact repos
-    # For local testing, override with:
-    #   nix flake show --override-input terraform-akeyless-gen git+file:///path/to/local/repo
     terraform-akeyless-gen = {
       url = "github:pleme-io/terraform-akeyless-gen";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -56,7 +53,15 @@
         pkgs = import nixpkgs { inherit system; };
         lib = pkgs.lib;
 
-        # Resource specs as a derivation (for validation / downstream consumption)
+        # Rust verification tool — replaces fragile shell/Python inline checks
+        iac-verify = pkgs.rustPlatform.buildRustPackage {
+          pname = "iac-verify";
+          version = "0.1.0";
+          src = ./tools/iac-verify;
+          cargoLock.lockFile = ./tools/iac-verify/Cargo.lock;
+          meta.description = "Verification tool for IaC-generated artifacts";
+        };
+
         resource-specs = pkgs.runCommand "akeyless-resource-specs" {
           src = self;
         } ''
@@ -66,7 +71,6 @@
           cp $src/provider.toml $out/share/akeyless-resources/
         '';
 
-        # Collect generated packages from each -gen repo
         genPkgs = {
           terraform-provider = terraform-akeyless-gen.packages.${system}.default;
           ansible-collection = ansible-akeyless-gen.packages.${system}.default;
@@ -76,29 +80,32 @@
           steampipe-plugin = steampipe-akeyless-gen.packages.${system}.default;
         };
 
-        # Content validation from each -gen repo
-        contentChecks = {
-          terraform-syntax = terraform-akeyless-gen.checks.${system}.default;
-          steampipe-syntax = steampipe-akeyless-gen.checks.${system}.default;
-          helm-lint = helm-akeyless-gen.checks.${system}.default;
-          ansible-syntax = ansible-akeyless-gen.checks.${system}.default;
-          crossplane-crds = crossplane-akeyless-gen.checks.${system}.default;
-          pulumi-schema = pulumi-akeyless-gen.checks.${system}.default;
+        # Verification checks — each runs iac-verify against packaged artifacts
+        mkVerifyCheck = name: backend: artifactDir: pkgs.runCommand "verify-${name}" {
+          nativeBuildInputs = [ iac-verify ];
+        } ''
+          iac-verify ${backend} ${artifactDir}
+          mkdir -p $out
+          iac-verify ${backend} ${artifactDir} > $out/result.txt
+        '';
+
+        verifyChecks = {
+          verify-terraform = mkVerifyCheck "terraform" "go"
+            "${genPkgs.terraform-provider}/share/terraform";
+          verify-steampipe = mkVerifyCheck "steampipe" "go"
+            "${genPkgs.steampipe-plugin}/share/steampipe";
+          verify-helm = mkVerifyCheck "helm" "helm"
+            "${genPkgs.helm-charts}/share/helm";
+          verify-ansible = mkVerifyCheck "ansible" "ansible"
+            "${genPkgs.ansible-collection}/share/ansible/collections/akeyless";
+          verify-crossplane = mkVerifyCheck "crossplane" "crossplane"
+            "${genPkgs.crossplane-crds}/share/crossplane/crds";
+          verify-pulumi = mkVerifyCheck "pulumi" "pulumi"
+            "${genPkgs.pulumi-schema}/share/pulumi";
         };
 
-        # Package build verification
-        packageChecks = builtins.mapAttrs (name: pkg:
-          pkgs.runCommand "check-pkg-${name}" {} ''
-            test -d ${pkg} || (echo "FAIL: ${name} did not produce output" && exit 1)
-            echo "OK: ${name} (${pkg})"
-            mkdir -p $out
-            echo "${name}: ${pkg}" > $out/result.txt
-          ''
-        ) genPkgs;
+        allChecks = verifyChecks;
 
-        allChecks = contentChecks // packageChecks;
-
-        # Sync script wrapper
         sync-script = pkgs.writeShellApplication {
           name = "akeyless-iac-sync";
           runtimeInputs = [ pkgs.rsync ];
@@ -110,10 +117,9 @@
       {
         packages = genPkgs // {
           default = resource-specs;
-          inherit resource-specs;
+          inherit resource-specs iac-verify;
 
-          # Single build target that forces all checks to pass.
-          # Used by kenshi: nix build .#verify-all
+          # Single build target for kenshi: forces all 6 backend checks to pass
           verify-all = let
             checkRefs = lib.mapAttrsToList (name: drv:
               "echo '  ${name}: ${drv}' >> $out/result.txt && cat ${drv}/result.txt >> $out/result.txt 2>/dev/null || true"
@@ -139,14 +145,13 @@
         checks = allChecks;
 
         devShells.default = pkgs.mkShellNoCC {
-          packages = [
-            pkgs.rsync
-          ];
+          packages = [ pkgs.rsync iac-verify ];
           shellHook = ''
             echo "akeyless-terraform-resources dev shell"
-            echo "  nix run .#sync       -- run full iac-forge pipeline"
-            echo "  nix flake check      -- verify all 7 backends (content + packaging)"
-            echo "  nix build .#verify-all -- single derivation that forces all checks"
+            echo "  nix run .#sync          -- run full iac-forge pipeline"
+            echo "  nix flake check         -- verify all 6 backends via iac-verify"
+            echo "  nix build .#verify-all  -- single derivation for kenshi"
+            echo "  iac-verify <backend> <dir>  -- verify a single backend"
           '';
         };
       }

@@ -99,16 +99,28 @@
 
         apps.default = self.apps.${system}.sync;
 
-        # Checks: build every generated package to verify validity
-        checks = builtins.mapAttrs (name: pkg:
-          pkgs.runCommand "check-${name}" {} ''
-            # Verify the derivation built and has content
-            test -d ${pkg} || (echo "FAIL: ${name} did not produce output" && exit 1)
-            echo "OK: ${name} (${pkg})"
-            mkdir -p $out
-            echo "${name}: ${pkg}" > $out/result.txt
-          ''
-        ) genPkgs;
+        # Checks: delegate content validation to each -gen repo, plus verify packaging
+        checks = let
+          # Content validation from each -gen repo
+          contentChecks = {
+            terraform-syntax = terraform-akeyless-gen.checks.${system}.default;
+            steampipe-syntax = steampipe-akeyless-gen.checks.${system}.default;
+            helm-lint = helm-akeyless-gen.checks.${system}.default;
+            ansible-syntax = ansible-akeyless-gen.checks.${system}.default;
+            crossplane-crds = crossplane-akeyless-gen.checks.${system}.default;
+            pulumi-schema = pulumi-akeyless-gen.checks.${system}.default;
+          };
+
+          # Package build verification (existing)
+          packageChecks = builtins.mapAttrs (name: pkg:
+            pkgs.runCommand "check-pkg-${name}" {} ''
+              test -d ${pkg} || (echo "FAIL: ${name} did not produce output" && exit 1)
+              echo "OK: ${name} (${pkg})"
+              mkdir -p $out
+              echo "${name}: ${pkg}" > $out/result.txt
+            ''
+          ) genPkgs;
+        in contentChecks // packageChecks;
 
         devShells.default = pkgs.mkShellNoCC {
           packages = [
@@ -117,7 +129,7 @@
           shellHook = ''
             echo "akeyless-terraform-resources dev shell"
             echo "  nix run .#sync  -- run full iac-forge pipeline"
-            echo "  nix flake check -- verify all generated packages build"
+            echo "  nix flake check -- verify all 7 backends (content + packaging)"
           '';
         };
       }

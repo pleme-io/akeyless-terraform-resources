@@ -10,11 +10,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1773793616,
-        "narHash": "sha256-qyKOIxpx4VjdEKsxhymRdoK74C4r4y38yw0iq9WMi5w=",
+        "lastModified": 1773844841,
+        "narHash": "sha256-vM83k4q22XHEnBIH1sMwB8E9HPQB5WPe16ibojeUHKg=",
         "owner": "pleme-io",
         "repo": "ansible-akeyless-gen",
-        "rev": "88c3c09d803c33913117e860c4677efd71b5aa39",
+        "rev": "7d9451919aac5b5ea8271e465c6c5eab1dca66cf",
         "type": "github"
       },
       "original": {
@@ -33,11 +33,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1773793784,
-        "narHash": "sha256-PZYctNtIS5UOCH057iEKPPqpBuB8YYuXehxhFZrJB1U=",
+        "lastModified": 1773844842,
+        "narHash": "sha256-6Piy62MN4Y50Ywo0yKSAh+E1qPcPBFzvQOkU47zx8i8=",
         "owner": "pleme-io",
         "repo": "crossplane-akeyless-gen",
-        "rev": "fe7b0a6d06e1727774d8e9e217340152072692af",
+        "rev": "0da8837f77c37d03ecd5b4335ae7fb91ec3cdbe7",
         "type": "github"
       },
       "original": {
@@ -74,11 +74,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1773793616,
-        "narHash": "sha256-OOhAoIpMymXX+3z6ZkFeKC2yyT0wx1BAoWaQqcEbpl8=",
+        "lastModified": 1773844841,
+        "narHash": "sha256-UsIGNrIYjF7mutHwic+iUEkxwIg+5/YVhNF4YED4cVE=",
         "owner": "pleme-io",
         "repo": "helm-akeyless-gen",
-        "rev": "5e8b0319ae16f0a7fe333b2c0c79f8d26dc4ef6c",
+        "rev": "e9b46a7891a04ab462b8fdcd40296351f6c4b790",
         "type": "github"
       },
       "original": {
@@ -113,11 +113,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1773793617,
-        "narHash": "sha256-soYfwHknKZOrp0n47dmqirSRHYefiPKD1BGPQNbkwjs=",
+        "lastModified": 1773844843,
+        "narHash": "sha256-nMoj/elX3xS8H+2weZttqooY0zGZIlMqw/6XGBgD6Vw=",
         "owner": "pleme-io",
         "repo": "pulumi-akeyless-gen",
-        "rev": "0830fb09fbd37a22d25266951d75bd2bbf8eb853",
+        "rev": "7375f34ee853418af222cc585a2053b81a1b84ef",
         "type": "github"
       },
       "original": {
@@ -148,11 +148,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1773793615,
-        "narHash": "sha256-4YEW+6rGGrgnPLr4+TvDAr/gioPHGdgCPRfBjihpHo0=",
+        "lastModified": 1773844840,
+        "narHash": "sha256-/v0rC11K2hWSHFEbSTcBAp/iQXYD+06E0chAZw1Pwfg=",
         "owner": "pleme-io",
         "repo": "steampipe-akeyless-gen",
-        "rev": "87570164369c83a54e1a4097acc6d3ad0b51ef1b",
+        "rev": "93eabd0703588dabe159ec7736d5e4ec38d208d8",
         "type": "github"
       },
       "original": {
@@ -186,11 +186,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1773793604,
-        "narHash": "sha256-O25oI01qhPkPcsQNu77J5ccFkdPCquJwd8MSfqQYBMo=",
+        "lastModified": 1773844831,
+        "narHash": "sha256-Nljh6ZMD3RCHjEDg4c1EF/uheGWN7X1iheP+IXWKWUw=",
         "owner": "pleme-io",
         "repo": "terraform-akeyless-gen",
-        "rev": "b64bc1a40fbe6ac1631c068bcc242172cc2896f7",
+        "rev": "3cd3e0057dbd39b8f758ec61b975644d5267b934",
         "type": "github"
       },
       "original": {

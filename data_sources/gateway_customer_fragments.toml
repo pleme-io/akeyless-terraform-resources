@@ -4,7 +4,7 @@ description = "List gateway customer fragments"
 
 [read]
 endpoint = "/gateway-list-customer-fragments"
-schema = "GatewayListCustomerFragments"
+schema = "gatewayListCustomerFragments"
 
 [fields]
 token = { skip = true }

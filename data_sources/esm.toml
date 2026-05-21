@@ -4,7 +4,7 @@ description = "List external secrets manager integrations"
 
 [read]
 endpoint = "/esm-list"
-schema = "EsmList"
+schema = "esmList"
 
 [fields]
 token = { skip = true }

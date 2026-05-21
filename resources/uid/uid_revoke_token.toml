@@ -1,0 +1,18 @@
+[resource]
+name = "akeyless_uid_revoke_token"
+description = "Revoke a Universal Identity token (self or children)"
+category = "uid"
+kind = "action"
+
+[action]
+endpoint = "/uid-revoke-token"
+schema = "uidRevokeToken"
+response_schema = "uidRevokeTokenOutput"
+mutating = true
+sensitive_response_fields = []
+
+[fields]
+"auth-method-name" = { description = "The universal identity auth method name" }
+"revoke-token" = { required = true, description = "The universal identity token (or token-id) to revoke" }
+"revoke-type" = { required = true, description = "revokeSelf or revokeAll" }
+"uid-token" = { description = "Existing UID token; required only for universal_identity authentication" }

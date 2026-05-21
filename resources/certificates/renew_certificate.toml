@@ -1,0 +1,18 @@
+[resource]
+name = "akeyless_renew_certificate"
+description = "Renew an Akeyless PKI certificate"
+category = "certificates"
+kind = "action"
+
+[action]
+endpoint = "/renew-certificate"
+schema = "RenewCertificate"
+response_schema = "RenewCertificateOutput"
+mutating = true
+sensitive_response_fields = ["cert", "private_key", "reading_token"]
+
+[fields]
+"name" = { description = "Certificate name" }
+"cert-issuer-name" = { description = "Name of the PKI certificate issuer" }
+"item-id" = { type_override = "int", description = "Certificate item ID" }
+"generate-key" = { type_override = "bool", description = "Generate a new key as part of renewal" }

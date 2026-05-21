@@ -4,7 +4,7 @@ description = "List gateway dynamic secret producers"
 
 [read]
 endpoint = "/gateway-list-producers"
-schema = "GatewayListProducers"
+schema = "gatewayListProducers"
 
 [fields]
 token = { skip = true }

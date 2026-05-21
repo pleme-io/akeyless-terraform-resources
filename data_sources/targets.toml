@@ -4,7 +4,7 @@ description = "List all targets"
 
 [read]
 endpoint = "/list-targets"
-schema = "ListTargets"
+schema = "listTargets"
 
 [fields]
 token = { skip = true }

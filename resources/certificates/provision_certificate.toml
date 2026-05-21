@@ -1,0 +1,17 @@
+[resource]
+name = "akeyless_provision_certificate"
+description = "Provision an Akeyless certificate to a target"
+category = "certificates"
+kind = "action"
+
+[action]
+endpoint = "/provision-certificate"
+schema = "provisionCertificate"
+response_schema = "ProvisionCertificateOutput"
+mutating = true
+sensitive_response_fields = ["certificate", "private_key"]
+
+[fields]
+"name" = { required = true, description = "Certificate name" }
+"display-id" = { description = "Certificate display ID" }
+"item-id" = { type_override = "int", description = "Certificate item ID" }

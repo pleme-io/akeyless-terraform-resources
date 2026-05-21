@@ -4,7 +4,7 @@ description = "Read a specific authentication method by name"
 
 [read]
 endpoint = "/get-auth-method"
-schema = "GetAuthMethod"
+schema = "getAuthMethod"
 
 [fields]
 token = { skip = true }

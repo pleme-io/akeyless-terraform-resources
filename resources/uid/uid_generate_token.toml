@@ -1,0 +1,16 @@
+[resource]
+name = "akeyless_uid_generate_token"
+description = "Generate a Universal Identity authentication token"
+category = "uid"
+kind = "action"
+
+[action]
+endpoint = "/uid-generate-token"
+schema = "uidGenerateToken"
+response_schema = "uidGenerateTokenOutput"
+mutating = true
+sensitive_response_fields = ["token"]
+
+[fields]
+"auth-method-name" = { required = true, description = "The universal identity auth method name" }
+"uid-token" = { description = "Existing UID token for re-auth (universal_identity flow)" }

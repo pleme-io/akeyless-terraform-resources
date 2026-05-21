@@ -1,0 +1,23 @@
+[resource]
+name = "akeyless_derive_key"
+description = "Derive a key from an Akeyless static secret"
+category = "crypto"
+kind = "action"
+
+[action]
+endpoint = "/derive-key"
+schema = "DeriveKey"
+response_schema = "DeriveKeyOutput"
+mutating = true
+sensitive_response_fields = ["Key"]
+
+[fields]
+"alg" = { required = true, description = "KDF algorithm (default: pbkdf2)" }
+"iter" = { required = true, type_override = "int", description = "Iteration count" }
+"key-len" = { required = true, type_override = "int", description = "Derived key length in bytes" }
+"name" = { required = true, description = "Static secret full name" }
+"hash-function" = { description = "Hash function (pbkdf2 only)" }
+"mem" = { type_override = "int", description = "Memory size in kB (argon2id only)" }
+"parallelism" = { type_override = "int", description = "Parallelism (argon2id only)" }
+"salt" = { description = "Base64-encoded salt (auto-generated if absent)" }
+"accessibility" = { description = "Item accessibility (default: regular)" }

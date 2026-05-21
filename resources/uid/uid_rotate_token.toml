@@ -1,0 +1,18 @@
+[resource]
+name = "akeyless_uid_rotate_token"
+description = "Rotate an Akeyless Universal Identity token"
+category = "uid"
+kind = "action"
+
+[action]
+endpoint = "/uid-rotate-token"
+schema = "uidRotateToken"
+response_schema = "uidRotateTokenOutput"
+mutating = true
+sensitive_response_fields = ["token"]
+
+[fields]
+"uid-token" = { description = "The Universal identity token to rotate" }
+"fork" = { type_override = "bool", description = "Create a new child token with default parameters" }
+"with-manual-ack" = { type_override = "bool", description = "Disable automatic ack" }
+"send-manual-ack-token" = { description = "Manual ack token for the rotated token" }

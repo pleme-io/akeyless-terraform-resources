@@ -1,0 +1,24 @@
+[resource]
+name = "akeyless_generate_ca"
+description = "Create a new PKI CA + intermediate issuer"
+category = "certificates"
+kind = "action"
+
+[action]
+endpoint = "/generate-ca"
+schema = "GenerateCA"
+response_schema = "GenerateCAOutput"
+mutating = true
+sensitive_response_fields = []
+
+[fields]
+"allowed-domains" = { required = true, description = "Comma-delimited list of allowed domains" }
+"pki-chain-name" = { required = true, description = "PKI chain name" }
+"ttl" = { required = true, description = "Maximum TTL for issued certificates (s/m/h/d)" }
+"alg" = { description = "Classic key algorithm" }
+"key-type" = { description = "Key type" }
+"extended-key-usage" = { description = "Extended key usage (default: serverauth,clientauth)" }
+"max-path-len" = { type_override = "int", description = "Maximum intermediate cert path length" }
+"split-level" = { type_override = "int", description = "Number of secret fragments" }
+"protection-key-name" = { description = "Protection key (default account key if empty)" }
+delete_protection = { description = "Delete-protection flag (true/false string)" }

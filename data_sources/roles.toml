@@ -4,7 +4,7 @@ description = "List all roles"
 
 [read]
 endpoint = "/list-roles"
-schema = "ListRoles"
+schema = "listRoles"
 
 [fields]
 token = { skip = true }

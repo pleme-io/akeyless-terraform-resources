@@ -4,7 +4,7 @@ description = "List all authentication methods"
 
 [read]
 endpoint = "/list-auth-methods"
-schema = "ListAuthMethods"
+schema = "listAuthMethods"
 
 [fields]
 token = { skip = true }

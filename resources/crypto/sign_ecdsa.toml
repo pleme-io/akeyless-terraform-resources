@@ -1,0 +1,21 @@
+[resource]
+name = "akeyless_sign_ecdsa"
+description = "Sign a message using an ECDSA key"
+category = "crypto"
+kind = "action"
+
+[action]
+endpoint = "/sign-ecdsa"
+schema = "signEcDsa"
+response_schema = "SignEcDsaOutput"
+mutating = true
+sensitive_response_fields = ["result"]
+
+[fields]
+"message" = { required = true, description = "Base64-encoded message to sign" }
+"key-name" = { description = "Name of the EC key" }
+"display-id" = { description = "Display ID of the EC key" }
+"item-id" = { type_override = "int", description = "Item ID of the EC key" }
+"prehashed" = { type_override = "bool", description = "Whether the message is already hashed" }
+"version" = { type_override = "int", description = "Key version" }
+"accessibility" = { description = "Item accessibility (default: regular)" }

@@ -1,0 +1,16 @@
+[resource]
+name = "akeyless_get_cert_challenge"
+description = "Get a challenge for certificate-based authentication"
+category = "certificates"
+kind = "action"
+
+[action]
+endpoint = "/get-cert-challenge"
+schema = "GetCertChallenge"
+response_schema = "GetCertChallengeOutput"
+mutating = false
+sensitive_response_fields = []
+
+[fields]
+"access-id" = { description = "Access ID for the cert auth method" }
+"cert-data" = { description = "Base64-encoded certificate data" }

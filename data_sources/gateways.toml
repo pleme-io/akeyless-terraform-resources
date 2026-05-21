@@ -4,7 +4,7 @@ description = "List all gateways"
 
 [read]
 endpoint = "/list-gateways"
-schema = "ListGateways"
+schema = "listGateways"
 
 [fields]
 token = { skip = true }

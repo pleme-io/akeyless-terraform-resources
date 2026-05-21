@@ -1,0 +1,21 @@
+[resource]
+name = "akeyless_decrypt"
+description = "Decrypt ciphertext using an Akeyless key"
+category = "crypto"
+kind = "action"
+
+[action]
+endpoint = "/decrypt"
+schema = "decrypt"
+response_schema = "decryptOutput"
+mutating = true
+sensitive_response_fields = ["result"]
+
+[fields]
+"key-name" = { required = true, description = "Name of the key used for decryption" }
+"ciphertext" = { description = "Base64-encoded ciphertext to decrypt" }
+"display-id" = { description = "Display ID of the key" }
+"item-id" = { type_override = "int", description = "Item ID of the key" }
+"output-format" = { description = "Output format (e.g. base64)" }
+"version" = { type_override = "int", description = "Key version (classic keys only)" }
+"encryption-context" = { description = "Authenticated-encryption context (must match encrypt-side context)" }

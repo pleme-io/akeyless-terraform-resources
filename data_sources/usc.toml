@@ -4,7 +4,7 @@ description = "List universal secrets connectors"
 
 [read]
 endpoint = "/usc-list"
-schema = "UscList"
+schema = "uscList"
 
 [fields]
 token = { skip = true }

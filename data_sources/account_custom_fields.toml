@@ -4,7 +4,7 @@ description = "List account custom fields"
 
 [read]
 endpoint = "/account-custom-field-list"
-schema = "AccountCustomFieldList"
+schema = "accountCustomFieldList"
 
 [fields]
 token = { skip = true }

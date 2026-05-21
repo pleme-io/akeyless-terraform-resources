@@ -4,7 +4,7 @@ description = "List all groups"
 
 [read]
 endpoint = "/list-groups"
-schema = "ListGroups"
+schema = "listGroups"
 
 [fields]
 token = { skip = true }

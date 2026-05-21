@@ -1,0 +1,22 @@
+[resource]
+name = "akeyless_uid_create_child_token"
+description = "Create a new child token using Akeyless Universal Identity"
+category = "uid"
+kind = "action"
+
+[action]
+endpoint = "/uid-create-child-token"
+schema = "uidCreateChildToken"
+response_schema = "uidCreateChildTokenOutput"
+mutating = true
+sensitive_response_fields = ["token"]
+
+[fields]
+"auth-method-name" = { description = "The universal identity auth method name (when uid-token is not provided)" }
+"uid-token" = { description = "Existing UID token; required only for universal_identity authentication" }
+"uid-token-id" = { description = "The ID of the uid-token, required only when uid-token is not provided" }
+"child-ttl" = { type_override = "int", description = "TTL of the new child token in seconds" }
+"child-deny-inheritance" = { type_override = "bool", description = "Deny the new child from creating its own children" }
+"child-deny-rotate" = { type_override = "bool", description = "Deny the new child from rotating" }
+"description" = { description = "Description of the new child" }
+"comment" = { description = "Deprecated - use description" }

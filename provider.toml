@@ -10,6 +10,12 @@ env_var = "AKEYLESS_ACCESS_TOKEN"
 gateway_url_field = "api_gateway_address"
 gateway_env_var = "AKEYLESS_GATEWAY"
 
+[platforms.ansible]
+# Ansible Galaxy publishing namespace. We use "drzln0" because Galaxy
+# auto-created that account when "drzln" was unavailable, and end users
+# cannot create custom namespaces.
+galaxy_namespace = "drzln0"
+
 [defaults]
 skip_fields = [
   "token",

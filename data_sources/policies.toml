@@ -4,7 +4,7 @@ description = "List all access policies"
 
 [read]
 endpoint = "/policies-list"
-schema = "PoliciesList"
+schema = "policiesList"
 
 [fields]
 token = { skip = true }

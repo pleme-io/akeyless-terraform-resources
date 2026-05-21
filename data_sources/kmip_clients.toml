@@ -4,7 +4,7 @@ description = "List KMIP clients"
 
 [read]
 endpoint = "/kmip-list-clients"
-schema = "KmipListClients"
+schema = "kmipListClients"
 
 [fields]
 token = { skip = true }

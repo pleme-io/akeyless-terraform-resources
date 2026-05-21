@@ -4,7 +4,7 @@ description = "List gateway migrations"
 
 [read]
 endpoint = "/gateway-list-migration"
-schema = "GatewayListMigration"
+schema = "gatewayListMigration"
 
 [fields]
 token = { skip = true }

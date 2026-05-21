@@ -1,0 +1,20 @@
+[resource]
+name = "akeyless_hmac"
+description = "Compute an HMAC using an Akeyless AES key"
+category = "crypto"
+kind = "action"
+
+[action]
+endpoint = "/hmac"
+schema = "hmac"
+response_schema = "hmacOutput"
+mutating = true
+sensitive_response_fields = ["result"]
+
+[fields]
+"key-name" = { required = true, description = "Name of the AES key" }
+"plaintext" = { description = "Data to authenticate" }
+"display-id" = { description = "Display ID of the key" }
+"item-id" = { type_override = "int", description = "Item ID of the key" }
+"hash-function" = { description = "Hash function (sha-256 or sha-512)" }
+"input-format" = { description = "Assumed format for plaintext input (e.g. base64)" }

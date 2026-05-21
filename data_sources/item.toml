@@ -4,7 +4,7 @@ description = "Describe a specific item (secret, key, or certificate)"
 
 [read]
 endpoint = "/describe-item"
-schema = "DescribeItem"
+schema = "describeItem"
 response_schema = "Item"
 
 [fields]

@@ -1,0 +1,18 @@
+[resource]
+name = "akeyless_revoke_certificate"
+description = "Revoke a certificate and add it to the CRL"
+category = "certificates"
+kind = "action"
+
+[action]
+endpoint = "/revoke-certificate"
+schema = "RevokeCertificate"
+response_schema = "RevokeCertificateOutput"
+mutating = true
+sensitive_response_fields = []
+
+[fields]
+"name" = { description = "Certificate item name" }
+"item-id" = { type_override = "int", description = "Item ID of the certificate to revoke" }
+"serial-number" = { description = "Serial number of the certificate" }
+"version" = { type_override = "int", description = "Certificate version (required when name/item-id specified)" }

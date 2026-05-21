@@ -1,0 +1,30 @@
+# NOTE: v2 placement in keys/ subdir. The legacy spec lives at misc/kmip_environment.toml.
+# KMIP environments are a singleton per tenant — there is exactly one. The create schema
+# `kmipServerSetup` has NO `name` field (only `hostname` and `root`); kmipDescribeServer and
+# kmipDeleteServer have no identifying fields at all. We use `hostname` as the identity field
+# since that is the closest thing to a stable identifier in the create payload.
+# No update endpoint; any change forces destroy+recreate.
+[resource]
+name = "akeyless_kmip_environment_v2"
+description = "Manages the singleton KMIP environment in Akeyless Vault (no update; changes force recreate)"
+category = "kmip"
+
+[crud]
+create_endpoint = "/kmip-create-environment"
+create_schema = "kmipServerSetup"
+read_endpoint = "/kmip-get-environment"
+read_schema = "kmipDescribeServer"
+read_response_schema = "kmipDescribeServerOutput"
+delete_endpoint = "/kmip-delete-environment"
+delete_schema = "kmipDeleteServer"
+
+[identity]
+id_field = "hostname"
+import_field = "hostname"
+force_new_fields = ["hostname", "root", "certificate-ttl"]
+
+[fields]
+
+[read_mapping]
+"hostname" = "hostname"
+"root" = "root"

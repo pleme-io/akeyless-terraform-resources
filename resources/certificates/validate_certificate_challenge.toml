@@ -1,0 +1,17 @@
+[resource]
+name = "akeyless_validate_certificate_challenge"
+description = "Validate HTTP-01 challenge and finalize certificate issuance"
+category = "certificates"
+kind = "action"
+
+[action]
+endpoint = "/validate-certificate-challenge"
+schema = "ValidateCertificateChallenge"
+response_schema = "ValidateCertificateChallengeOutput"
+mutating = true
+sensitive_response_fields = ["cert"]
+
+[fields]
+"name" = { description = "Certificate name (alternative to cert-display-id)" }
+"cert-display-id" = { description = "Certificate display ID from Phase 1" }
+"timeout" = { type_override = "int", description = "Validation timeout in seconds (default: 120)" }

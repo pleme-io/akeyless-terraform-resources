@@ -1,0 +1,21 @@
+[resource]
+name = "akeyless_sign_data_with_classic_key"
+description = "Sign arbitrary data using a Classic key"
+category = "crypto"
+kind = "action"
+
+[action]
+endpoint = "/sign-data-with-classic-key"
+schema = "signDataWithClassicKey"
+response_schema = "signOutput"
+mutating = true
+sensitive_response_fields = ["result"]
+
+[fields]
+"data" = { required = true, description = "Data to sign" }
+"display-id" = { required = true, description = "Display name of the classic key" }
+"name" = { required = true, description = "Classic key name" }
+"version" = { required = true, type_override = "int", description = "Classic key version" }
+"hashed" = { type_override = "bool", description = "Whether the data is already hashed" }
+"hashing-method" = { description = "Hashing method (default: SHA256)" }
+"ignore-cache" = { description = "Bypass the Gateway secret cache (true/false string)" }

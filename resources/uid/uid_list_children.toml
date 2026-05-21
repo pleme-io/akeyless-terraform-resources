@@ -1,0 +1,15 @@
+[resource]
+name = "akeyless_uid_list_children"
+description = "List child token IDs of an Akeyless Universal Identity"
+category = "uid"
+kind = "action"
+
+[action]
+endpoint = "/uid-list-children"
+schema = "uidListChildren"
+mutating = false
+sensitive_response_fields = []
+
+[fields]
+"auth-method-name" = { description = "The universal identity auth method name (when uid-token is not provided)" }
+"uid-token" = { description = "Existing UID token; required only for universal_identity authentication" }

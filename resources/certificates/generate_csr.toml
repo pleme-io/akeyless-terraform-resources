@@ -1,0 +1,33 @@
+[resource]
+name = "akeyless_generate_csr"
+description = "Generate a Certificate Signing Request"
+category = "certificates"
+kind = "action"
+
+[action]
+endpoint = "/generate-csr"
+schema = "generateCsr"
+response_schema = "generateCsrOutput"
+mutating = true
+sensitive_response_fields = ["data"]
+
+[fields]
+"common-name" = { required = true, description = "Common name for the CSR" }
+"key-type" = { required = true, description = "Key type (classic-key or dfc)" }
+"name" = { required = true, description = "Key name" }
+"alg" = { description = "Classic key algorithm" }
+"alt-names" = { description = "Comma-separated DNS alt names" }
+"ip-addresses" = { description = "Comma-separated IP alt names" }
+"uri-sans" = { description = "Comma-separated URI alt names" }
+"email-addresses" = { description = "Comma-separated email alt names" }
+"certificate-type" = { description = "Certificate type (ssl-client / ssl-server / certificate-signing)" }
+"city" = { description = "City for the CSR subject" }
+"country" = { description = "Country for the CSR subject" }
+"dep" = { description = "Department for the CSR subject" }
+"org" = { description = "Organization for the CSR subject" }
+"state" = { description = "State for the CSR subject" }
+"hash-algorithm" = { description = "Hash algorithm (SHA256/384/512)" }
+"export-private-key" = { type_override = "bool", description = "Whether to export the private key" }
+"generate-key" = { type_override = "bool", description = "Generate a new classic key for the CSR" }
+"critical" = { type_override = "bool", description = "Mark key usage as critical" }
+"split-level" = { type_override = "int", description = "Number of secret fragments" }

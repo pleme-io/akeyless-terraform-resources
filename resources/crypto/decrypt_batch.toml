@@ -1,0 +1,18 @@
+[resource]
+name = "akeyless_decrypt_batch"
+description = "Decrypt multiple items in a single batched call"
+category = "crypto"
+kind = "action"
+
+[action]
+endpoint = "/decrypt-batch"
+schema = "BatchEncryptionRequestLine"
+sdk_method = "decrypt_batch"
+mutating = true
+sensitive_response_fields = ["result"]
+
+[fields]
+"data" = { description = "Base64-encoded ciphertext data (per-line)" }
+"item_id" = { type_override = "int", description = "Item ID of the key (per-line)" }
+"item_version" = { type_override = "int", description = "Key version (per-line)" }
+"context" = { description = "Encryption context per-line" }

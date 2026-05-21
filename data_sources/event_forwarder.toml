@@ -4,7 +4,7 @@ description = "Read a specific event forwarder"
 
 [read]
 endpoint = "/get-event-forwarder"
-schema = "GetEventForwarder"
+schema = "getEventForwarder"
 
 [fields]
 token = { skip = true }

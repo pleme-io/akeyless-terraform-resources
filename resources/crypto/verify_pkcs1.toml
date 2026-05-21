@@ -1,0 +1,23 @@
+[resource]
+name = "akeyless_verify_pkcs1"
+description = "Verify an RSA PKCS#1 v1.5 signature"
+category = "crypto"
+kind = "action"
+
+[action]
+endpoint = "/verify-pkcs1"
+schema = "verifyPKCS1"
+response_schema = "verifyPKCS1Output"
+mutating = false
+sensitive_response_fields = []
+
+[fields]
+"key-name" = { required = true, description = "Name of the RSA key" }
+"message" = { required = true, description = "Message to verify" }
+"signature" = { required = true, description = "Signature to verify" }
+"display-id" = { description = "Display ID of the key" }
+"item-id" = { type_override = "int", description = "Item ID of the key" }
+"hash-function" = { description = "Hash function (e.g. sha-256)" }
+"input-format" = { description = "Assumed format for plaintext (e.g. base64)" }
+"prehashed" = { type_override = "bool", description = "Whether the message is already hashed" }
+"version" = { type_override = "int", description = "Key version" }

@@ -1,0 +1,21 @@
+[resource]
+name = "akeyless_encrypt"
+description = "Encrypt plaintext using an Akeyless key"
+category = "crypto"
+kind = "action"
+
+[action]
+endpoint = "/encrypt"
+schema = "encrypt"
+response_schema = "encryptOutput"
+mutating = true
+sensitive_response_fields = ["result"]
+
+[fields]
+"key-name" = { required = true, description = "Name of the key used for encryption" }
+"plaintext" = { description = "Data to be encrypted" }
+"display-id" = { description = "Display ID of the key" }
+"item-id" = { type_override = "int", description = "Item ID of the key" }
+"input-format" = { description = "Assumed format for plaintext input (e.g. base64)" }
+"version" = { type_override = "int", description = "Key version (classic keys only)" }
+"encryption-context" = { description = "Authenticated-encryption context (key/value)" }

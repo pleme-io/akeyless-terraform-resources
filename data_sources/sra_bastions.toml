@@ -4,7 +4,7 @@ description = "List Secure Remote Access bastions"
 
 [read]
 endpoint = "/list-sra-bastions"
-schema = "ListSRABastions"
+schema = "listSRABastions"
 
 [fields]
 token = { skip = true }

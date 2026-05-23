@@ -15,6 +15,9 @@ gateway_env_var = "AKEYLESS_GATEWAY"
 # auto-created that account when "drzln" was unavailable, and end users
 # cannot create custom namespaces.
 galaxy_namespace = "drzln0"
+# Module author line emitted in each generated module's DOCUMENTATION.
+# Convention: "Display Name (@github-handle)".
+author = "pleme-io (@pleme-io)"
 
 [defaults]
 skip_fields = [

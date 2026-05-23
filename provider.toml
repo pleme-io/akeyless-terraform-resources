@@ -18,6 +18,13 @@ galaxy_namespace = "drzln0"
 # Module author line emitted in each generated module's DOCUMENTATION.
 # Convention: "Display Name (@github-handle)".
 author = "pleme-io (@pleme-io)"
+# Extra entries to add to meta/runtime.yml's action_groups.all list,
+# alongside the generated module surface. Use this for hand-maintained
+# action-plugin shadows (plugins/action/<name>.py with a paired
+# plugins/modules/<name>.py wrapper) that don't have a corresponding
+# TOML resource spec but still need to join `drzln0.akeyless.all`
+# for module_defaults coverage.
+action_group_extras = ["secret_to_file"]
 
 [defaults]
 skip_fields = [

@@ -12,11 +12,11 @@
         "tatara-lisp": "tatara-lisp"
       },
       "locked": {
-        "lastModified": 1779731833,
-        "narHash": "sha256-qIEhN5ZcTl9TWM9vS7f39WKOiOpDxEEVLvR+H/+PtUE=",
+        "lastModified": 1779768486,
+        "narHash": "sha256-i1uzXcfu0ETmxV/+D8LrlFfRxQLQdHtw7LmdnIkjky0=",
         "owner": "pleme-io",
         "repo": "ansible-akeyless-gen",
-        "rev": "0832393a5f050613368d0bb84c05a5b8ed520c35",
+        "rev": "4409fbbf6db6bf0530ad124a909bbaa7ca3cd4fb",
         "type": "github"
       },
       "original": {
@@ -2524,11 +2524,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1779727258,
-        "narHash": "sha256-VASO+rTkcLUpC5s391k7Rnl/z4mg0ClAOgGgcQ5E8vs=",
+        "lastModified": 1779764147,
+        "narHash": "sha256-K13xD6wy+svUCNcVC826rGQvOjhX14dSOZaylikLq2k=",
         "owner": "pleme-io",
         "repo": "substrate",
-        "rev": "1adb15599af9c4b57119efe46192fbd74d2cdfb7",
+        "rev": "85834790de296b29536b0ab41ff993efa354935e",
         "type": "github"
       },
       "original": {

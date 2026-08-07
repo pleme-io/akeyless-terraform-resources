@@ -6,6 +6,17 @@ rust-version = "1.89.0"
 license = "MIT"
 description = "Verification tool for IaC-generated artifacts"
 
+# Repo-internal tool, not a published crate.
+#
+# This repository's artifact is the TOML resource-spec package that iac-forge
+# consumes; `tools/iac-verify` exists to check the generated output in CI here.
+# Fleet consumers outside this repo: zero.
+#
+# Declared so adoption audits stop counting this repo as "a packageable crate
+# missing a release flow" — the remedy that reading suggests (add an
+# auto-release shim) would publish an internal checker to crates.io.
+publish = false
+
 [dependencies]
 serde = { version = "1", features = ["derive"] }
 serde_json = "1"
